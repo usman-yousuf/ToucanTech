@@ -10,24 +10,28 @@ use League\Csv\Writer;
 
 class MemberController extends Controller
 {
+    // Fetch all school and show on index page
     public function index()
     {
         $schools = School::all();
         return view('index', compact('schools'));
     }
 
+    // Fetch school members associating to the schools 
     public function showBySchool(School $school)
     {
         $members = $school->members;
         return view('show_members', compact('members', 'school'));
     }
 
+    // view of add new member page in a school
     public function addMember()
     {
         $schools = School::all();
         return view('add_new_member', compact('schools'));
     }
 
+    // Store new member  
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -48,7 +52,7 @@ class MemberController extends Controller
 
 
     
-
+    // Download CSV of all schools all members
     public function downloadMembersCSV()
     {
         // Fetch all members with their associated schools
